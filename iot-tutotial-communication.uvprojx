@@ -421,6 +421,11 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+            <File>
+              <FileName>Modem_SIM900.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modem_SIM900.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
