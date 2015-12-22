@@ -440,6 +440,9 @@
           <GroupName>::CMSIS Driver</GroupName>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
         <Group>
@@ -515,6 +518,12 @@
       </component>
       <component Capiversion="2.1" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="2.8" condition="LPC4300 CMSIS SCU GPDMA">
         <package name="LPC4300_DFP" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="Keil" version="2.5.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cvendor="Keil" Cversion="1.0.0" condition="ARMCC Cortex-M with ITM">
+        <package name="ARM_Compiler" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.0.0"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
