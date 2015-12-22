@@ -36,7 +36,7 @@
 //              <460800=>460800
 //              <921600=>921600
 //     <i>Baud rate setting for USART driver
-#define PPP_MODEM_SPEED         115200
+#define PPP_MODEM_SPEED         9600
 
 //     <o>Flow Control <0=>None
 //                     <1=>RTS/CTS
@@ -46,7 +46,8 @@
 //     <s.50>Initialization String
 //     <i>Custom commands for modem initialization
 //     <i>Default: none
-#define PPP_MODEM_INIT_STRING   ""
+//     <i>Sample: AT+CGDCONT=1,\"IP\",\"internet\"
+#define PPP_MODEM_INIT_STRING   "AT+CGDCONT=1,\"IP\",\"internet\"\r\n"
 //   </h>
 
 //   <s.15>IP Address

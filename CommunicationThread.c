@@ -25,7 +25,7 @@ static void CommunicationThread (void const *argument) {
 	netStatus stat;
 	uint8_t connection_waits;
 	HOSTENT* hostentry;
-	int err, i, j;
+	int err, j;
 	IN_ADDR *addr;
 	
 	while (1) {
