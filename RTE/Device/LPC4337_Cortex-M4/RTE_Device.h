@@ -1011,7 +1011,7 @@
 // </e> I2C1 (Inter-integrated Circuit Interface 1) [Driver_I2C1]
 
 // <e> USART0 (Universal synchronous asynchronous receiver transmitter) [Driver_USART0]
-#define   RTE_USART0                    0
+#define   RTE_USART0                    1
 
 //   <h> Pin Configuration
 //     <o> TX <0=>P2_0 <1=>P6_4 <2=>P9_5 <3=>PF_10
