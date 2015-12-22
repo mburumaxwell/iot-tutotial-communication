@@ -3,6 +3,7 @@
 #include "rl_net.h"                     // Keil.MDK-Pro::Network:CORE
 
 extern int Init_CommunicationThread(void);
+extern osThreadId tid_CommunicationThread;
 
 int main(void) {
 	osKernelInitialize();       // Initialize CMSIS-RTOS
@@ -13,5 +14,11 @@ int main(void) {
 	
 	Init_CommunicationThread();
 
-	osKernelStart();            // Start thread execution 
+	osKernelStart();            // Start thread execution
+	
+    // Signal the communication thread after 5 seconds of running
+    // This functionality can be replaced by an kind of interrupt
+    // example: RTC wakeup alarm, button press, physical timer timeout etc.
+	osDelay(5000);
+	osSignalSet(tid_CommunicationThread, 0x01);
 }

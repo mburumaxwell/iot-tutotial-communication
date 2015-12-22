@@ -1,18 +1,19 @@
 #include "cmsis_os.h"                                           // CMSIS RTOS header file
 #include "rl_net.h"                     // Keil.MDK-Pro::Network:CORE
 #include <stdio.h>
+#include <stdlib.h>
 
 /*----------------------------------------------------------------------------
  *      Thread 1 'CommunicationThread': Thread that handles communications
  *---------------------------------------------------------------------------*/
  
-static void CommunicationThread (void const *argument);		// thread function
-osThreadId tid_Thread;										// thread id
-osThreadDef (CommunicationThread, osPriorityNormal, 1, 0);	// thread object
+static void CommunicationThread (void const *argument);			// thread function
+osThreadId tid_CommunicationThread;								// thread id
+osThreadDef (CommunicationThread, osPriorityNormal, 1, 768);	// thread object
 
 int Init_CommunicationThread (void) {
-	tid_Thread = osThreadCreate (osThread(CommunicationThread), NULL);
-	if (!tid_Thread) return(-1);
+	tid_CommunicationThread = osThreadCreate (osThread(CommunicationThread), NULL);
+	if (!tid_CommunicationThread) return(-1);
 	
 	return(0);
 }
@@ -35,7 +36,7 @@ static void CommunicationThread (void const *argument) {
 		if (evt.status != osEventSignal) 
 			continue;
 
-		stat = netPPP_Connect("*99#", NULL, NULL);
+		stat = netPPP_Connect("*99#", "", "");
 		if (stat != netOK) {
 			printf("PPP connection failed. ret=%d\r\n", stat);
 			continue;
@@ -56,6 +57,7 @@ static void CommunicationThread (void const *argument) {
 		}
 		
 		// At this point we have a connection now we can do somthing
+		// Let us resolve the IP address of the blog
 		hostentry = gethostbyname(SERVER_NAME, &err);
 		if (hostentry == NULL) {
 			if (err == BSD_ERROR_NONAME)
@@ -68,6 +70,7 @@ static void CommunicationThread (void const *argument) {
 				addr = (IN_ADDR *)hostentry->h_addr_list[j];
 				printf("IPv4: %d.%d.%d.%d\r\n", addr->s_b1, addr->s_b2, addr->s_b3, addr->s_b4);
 			}
+			free(hostentry);
 		}
 		
 		
@@ -89,6 +92,5 @@ static void CommunicationThread (void const *argument) {
 			printf("Could not close the PPP connection after %dms\r\n", CONNECTION_WAITS*400);
 		else
 			printf("PPP link was closed\r\n");
-
 	}
 }
