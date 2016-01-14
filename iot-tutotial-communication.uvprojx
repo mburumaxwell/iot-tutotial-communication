@@ -431,6 +431,11 @@
               <FileType>1</FileType>
               <FilePath>.\CommunicationThread.c</FilePath>
             </File>
+            <File>
+              <FileName>mqtt_keilds_transport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mqtt_keilds_transport.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

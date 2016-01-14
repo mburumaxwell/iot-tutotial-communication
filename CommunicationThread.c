@@ -21,6 +21,8 @@ int Init_CommunicationThread (void) {
 #define CONNECTION_WAITS	10
 #define SERVER_NAME "maxwellweru.azurewebsites.net"
 
+static int SendReport(void);
+
 static void CommunicationThread (void const *argument) {
 	osEvent evt;
 	netStatus stat;
@@ -73,6 +75,9 @@ static void CommunicationThread (void const *argument) {
 			free(hostentry);
 		}
 		
+		// Test MQTT
+		SendReport();
+		
 		
 		// We must close the PP link after using it
 		printf("CLosing the PPP link\r\n");
@@ -93,4 +98,55 @@ static void CommunicationThread (void const *argument) {
 		else
 			printf("PPP link was closed\r\n");
 	}
+}
+
+#include <string.h>
+#include "mqtt/MQTTPacket.h"
+#include "mqtt_keilds_transport.h"
+
+char *host = "m2m.eclipse.org";
+int port = 1883;
+char* username = "testuser";
+char* password = "testpassword";
+MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
+int rc = 0;
+unsigned char buf[200];
+int buflen = sizeof(buf);
+int mysock = 0;
+MQTTString topicString = MQTTString_initializer;
+char* payload = "{\"temp1\":22.3546,\"temp2\":54.1287,\"weight\":4578.125}";
+int payloadlen;
+int len = 0;
+char* topic = "devices/64F7295EA8C/telemetry";
+
+static int SendReport(void) {
+	payloadlen = strlen(payload);
+	mysock = transport_open(host,port);
+	if(mysock < 0)
+		return mysock;
+	printf("Sending to hostname %s port %d\n", host, port);
+
+	data.clientID.cstring = "th2gv1";
+	data.keepAliveInterval = 20;
+	data.cleansession = 1;
+	data.username.cstring = username;
+	data.password.cstring = password;
+	data.MQTTVersion = 4;
+
+	len = MQTTSerialize_connect((unsigned char *)buf, buflen, &data);
+	
+	topicString.cstring = topic;
+	len += MQTTSerialize_publish((unsigned char *)(buf + len), buflen - len, 0, 0, 0, 0, topicString, (unsigned char *)payload, payloadlen);
+
+	len += MQTTSerialize_disconnect((unsigned char *)(buf + len), buflen - len);
+
+	rc = transport_sendPacketBuffer(mysock, buf, len);
+	if (rc == len)
+		printf("Successfully published\n");
+	else
+		printf("Publish failed\n");
+	
+//exit:
+	transport_close(mysock);
+	return 0;	
 }
