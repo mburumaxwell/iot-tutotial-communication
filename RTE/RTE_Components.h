@@ -34,5 +34,6 @@
 #define RTE_Network_Socket_BSD          /* Network Socket BSD */
 #define RTE_Network_Socket_TCP          /* Network Socket TCP */
 #define RTE_Network_Socket_UDP          /* Network Socket UDP */
+#define RTE_Security_mbedTLS            /* Security mbed TLS */
 
 #endif /* RTE_COMPONENTS_H */

@@ -467,6 +467,9 @@
         <Group>
           <GroupName>::Network</GroupName>
         </Group>
+        <Group>
+          <GroupName>::Security</GroupName>
+        </Group>
       </Groups>
     </Target>
   </Targets>
@@ -477,6 +480,11 @@
         <targetInfos/>
       </filter>
       <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0">
+        <targetInfos>
+          <targetInfo name="Target 1" versionMatchMode="fixed"/>
+        </targetInfos>
+      </package>
+      <package name="mbedTLS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0">
         <targetInfos>
           <targetInfo name="Target 1" versionMatchMode="fixed"/>
         </targetInfos>
@@ -520,6 +528,12 @@
       </component>
       <component Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX" Cvendor="ARM" Cversion="4.80.0" condition="Cortex-M Device Startup">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Security" Cgroup="mbed TLS" Cvendor="ARM" Cversion="2.1.2" condition="Cortex-M Device">
+        <package name="mbedTLS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
@@ -668,6 +682,14 @@
         <instance index="0">RTE\Network\Net_Config_UDP.h</instance>
         <component Cbundle="MDK-Pro" Cclass="Network" Cgroup="Socket" Csub="UDP" Cvendor="Keil" Cversion="7.0.0" condition="Network Interface"/>
         <package name="MDK-Middleware" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="Keil" version="7.0.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="configs\mbedTLS_config.h">
+        <instance index="0">RTE\Security\mbedTLS_config.h</instance>
+        <component Cclass="Security" Cgroup="mbed TLS" Cvendor="ARM" Cversion="2.1.2" condition="Cortex-M Device"/>
+        <package name="mbedTLS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>
