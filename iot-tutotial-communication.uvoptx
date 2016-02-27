@@ -82,7 +82,7 @@
         <Book>
           <Number>0</Number>
           <Title>LPC4330 Xplorer: Blinky Lab (LPC4330-Xplorer)</Title>
-          <Path>C:\Keil_v5\ARM\PACK\Keil\LPC4300_DFP\2.5.0\Documents\NXP_Blinky_Lab.pdf</Path>
+          <Path>C:\Keil_v5\ARM\PACK\Keil\LPC4300_DFP\2.6.0\Documents\NXP_Blinky_Lab.pdf</Path>
         </Book>
         <Book>
           <Number>1</Number>
@@ -190,6 +190,9 @@
       <LintExecutable></LintExecutable>
       <LintConfigFile></LintConfigFile>
       <bLintAuto>0</bLintAuto>
+      <Lin2Executable></Lin2Executable>
+      <Lin2ConfigFile></Lin2ConfigFile>
+      <bLin2Auto>0</bLin2Auto>
       <SystemViewers>
         <Entry>
           <Name>OS Support\System and Thread Viewer</Name>
