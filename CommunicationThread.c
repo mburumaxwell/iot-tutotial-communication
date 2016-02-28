@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef RTE_Network_Interface_PPP
 /*----------------------------------------------------------------------------
  *      Thread 1 'CommunicationThread': Thread that handles communications
  *---------------------------------------------------------------------------*/
@@ -150,3 +151,4 @@ static int SendReport(void) {
 	transport_close(mysock);
 	return 0;	
 }
+#endif

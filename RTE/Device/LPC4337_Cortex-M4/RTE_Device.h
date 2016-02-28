@@ -445,7 +445,7 @@
 
 // <e> ENET (Ethernet Interface) [Driver_ETH_MAC0]
 // <i> Configuration settings for Driver_ETH_MAC0 in component ::Drivers:Ethernet MAC
-#define   RTE_ENET                      0
+#define   RTE_ENET                      1
 
 //   <e> MII (Media Independent Interface)
 #define   RTE_ENET_MII                  0
@@ -651,7 +651,7 @@
 //   </e> MII (Media Independent Interface)
 
 //   <e> RMII (Reduced Media Independent Interface)
-#define   RTE_ENET_RMII                 0
+#define   RTE_ENET_RMII                 1
 
 //     <o> ENET_TXD0 Pin <0=>P1_18
 #define   RTE_ENET_RMII_TXD0_PORT_ID    0
@@ -741,7 +741,7 @@
   #error "Invalid ENET_MDIO Pin Configuration!"
 #endif
 //     <o> ENET_MDC Pin <0=>P2_0 <1=>P7_7 <2=>PC_1
-#define   RTE_ENET_MDI_MDC_PORT_ID      2
+#define   RTE_ENET_MDI_MDC_PORT_ID      1
 #if      (RTE_ENET_MDI_MDC_PORT_ID == 0)
   #define RTE_ENET_MDI_MDC_PORT         2
   #define RTE_ENET_MDI_MDC_PIN          0
