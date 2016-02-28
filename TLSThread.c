@@ -119,7 +119,7 @@ void TLSThread (void const *argument) {
 			goto exit_n_loop;
 		}
 
-		if ((ret = mbedtls_ssl_set_hostname( &ssl, "mbed TLS Server 1")) != 0) {
+		if ((ret = mbedtls_ssl_set_hostname( &ssl, SERVER_NAME)) != 0) {
 			printf( " failed\n  ! mbedtls_ssl_set_hostname returned %d\n\n", ret );
 			goto exit_n_loop;
 		}
