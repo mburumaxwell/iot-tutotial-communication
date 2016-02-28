@@ -395,6 +395,11 @@
               <FileType>1</FileType>
               <FilePath>.\mqtt_keilds_transport.c</FilePath>
             </File>
+            <File>
+              <FileName>TLSThread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\TLSThread.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
