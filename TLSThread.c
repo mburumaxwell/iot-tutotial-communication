@@ -139,13 +139,12 @@ void TLSThread (void const *argument) {
 		
 		/* Step 6. Verify the server certificate */
 		printf("  . Verifying peer X.509 certificate..."); fflush(stdout);
-
-		/* In real life, we probably want to bail out when ret != 0 */
 		if ((flags = mbedtls_ssl_get_verify_result(&ssl)) != 0) {
 			char vrfy_buf[512];
 			printf(" failed\n");
 			mbedtls_x509_crt_verify_info(vrfy_buf, sizeof(vrfy_buf), "  ! ", flags);
 			printf("%s\n", vrfy_buf);
+			goto notify_close;
 		}
 		else
 			printf(" ok\n");
@@ -187,6 +186,7 @@ void TLSThread (void const *argument) {
 			printf(" %d bytes read\n\n%s", len, (char *) buf);
 		} while (1);
 
+notify_close:
 		/* Step 9. Close session */
 		mbedtls_ssl_close_notify(&ssl);
 		
