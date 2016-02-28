@@ -15,6 +15,7 @@
 #include "mbedtls/ctr_drbg.h"
 #include "mbedtls/error.h"
 #include "mbedtls/certs.h"
+#include "additional_cas.h"
 
 /*----------------------------------------------------------------------------
  *      Thread 1 'TLSThread': Thread that demonstrates how to use mbedTLS
@@ -85,7 +86,7 @@ void TLSThread (void const *argument) {
 		
 		/* Step 2. Initialize CA root certificates */
 		printf("  . Loading the CA root certificate ..."); fflush(stdout);
-		ret = mbedtls_x509_crt_parse(&cacert, (const unsigned char *) mbedtls_test_cas_pem, mbedtls_test_cas_pem_len);
+		ret = mbedtls_x509_crt_parse(&cacert, (const unsigned char *) additional_cas_pem, additional_cas_pem_len);
 		if (ret < 0) {
 			printf(" failed\n  !  mbedtls_x509_crt_parse returned -0x%x\r\n", -ret);
 			goto exit_n_loop;

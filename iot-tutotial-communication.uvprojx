@@ -400,6 +400,11 @@
               <FileType>1</FileType>
               <FilePath>.\TLSThread.c</FilePath>
             </File>
+            <File>
+              <FileName>additional_cas.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\additional_cas.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
