@@ -36,9 +36,13 @@ int Init_TLSThread (void) {
 }
 
 const char *pers = "this should be random";
-#define SERVER_PORT "8883"
-#define SERVER_NAME "iot.eclipse.org"
-#define DEBUG_LEVEL 1
+#define IOT_HUB_HOST_NAME	"<your-iot-hub-full-host-name-here" //e.g. "testhub.azure-devices.net"
+#define DEVICE_ID					"<your-chosen-device-id>"
+#define DEVICE_KEY				"<your-chosen-device-key>"
+
+#define SERVER_PORT				"8883"
+#define SERVER_NAME				IOT_HUB_HOST_NAME
+#define DEBUG_LEVEL				1
 
 
 typedef enum {
@@ -271,24 +275,43 @@ exit_n_loop:
   }
 }
 
+extern int32_t make_sas_signature(const char* audience, const uint8_t* device_key, uint8_t device_key_len, uint32_t expiry_time, uint8_t* result, size_t result_len, size_t* written_len);
+extern int32_t url_encode(const uint8_t *src, const uint32_t srclen, uint8_t *dest, const uint32_t destlen);
+extern uint32_t get_time_since_epoch(void);
 
+// concantenate needed strings (compile time)
+#define SAS_AUDIENCE					IOT_HUB_HOST_NAME DEVICE_ID
+#define MQTT_USERNAME			IOT_HUB_HOST_NAME "/" DEVICE_ID
 
-static const char* mqtt_client		=	"testclient";
-static const char* mqtt_username	= "testusername";
-static const char* mqtt_password	= "testpassword";
-static const char* mqtt_topic			=	"devices/64F7295EA8C/messages/telemetry";
-static const char* mqtt_payload		= "{\"temp1\":22.3546,\"temp2\":54.1287,\"weight\":4578.125}";
+#define SAS_FORMAT				"SharedAccessSignature sr=%s&sig=%s&se=%u&skn="
+#define MQTT_TOPIC_FORMAT	"devices/%s/messages/telemetry/"
+
+static char sas_sig[96];
+static char sas_sig_escaped[128];
+static char mqtt_password[256];
+static char mqtt_topic[100];
+
+static const char* mqtt_payload		= "{\"temp1\":22.3546,\"temp2\":54.1287,\"weight\":4578.125,\"extra\":\"hello from the other side\"}";
 
 static MQTTPacket_connectData mqtt_con_data = MQTTPacket_connectData_initializer;
 static MQTTString mqtt_topic_data = MQTTString_initializer;
 
 static int32_t PrepateMqttConPacket(uint8_t *dest,  uint32_t destlen, uint8_t* hasresp) {
 	int32_t len;
+	size_t key_len;
+	uint32_t expiry = get_time_since_epoch();
 	
-	mqtt_con_data.clientID.cstring = (char *) mqtt_client;
+	
+	make_sas_signature(SAS_AUDIENCE, (uint8_t*)DEVICE_KEY, strlen(DEVICE_KEY), expiry, (uint8_t*)sas_sig, sizeof(sas_sig), &key_len);
+	
+	key_len = url_encode((uint8_t*)sas_sig, key_len, (uint8_t*)sas_sig_escaped, sizeof(sas_sig_escaped));
+	
+	sprintf(mqtt_password, SAS_FORMAT, SAS_AUDIENCE, sas_sig_escaped, expiry);
+	
+	mqtt_con_data.clientID.cstring = (char *) DEVICE_ID;
 	mqtt_con_data.keepAliveInterval = 20;
 	mqtt_con_data.cleansession = 1;
-	mqtt_con_data.username.cstring = (char *) mqtt_username;
+	mqtt_con_data.username.cstring = (char *) MQTT_USERNAME;
 	mqtt_con_data.password.cstring = (char *) mqtt_password;
 	mqtt_con_data.MQTTVersion = 4;
 
@@ -302,6 +325,7 @@ static int32_t PrepateMqttPubPacket(uint8_t *dest,  uint32_t destlen, uint8_t* h
 	const uint8_t qos = 1;
 	
 	mqtt_payload_len = strlen(mqtt_payload);
+	sprintf(mqtt_topic, MQTT_TOPIC_FORMAT, DEVICE_ID);
 	mqtt_topic_data.cstring = (char *) mqtt_topic;
 	
 	len = MQTTSerialize_publish((unsigned char *)dest, destlen, // the destination buffer and its length

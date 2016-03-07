@@ -23,14 +23,18 @@ int main(void) {
 
 	osKernelStart();            // Start thread execution
 	
-    // Signal the communication thread after 5 seconds of running
-    // This functionality can be replaced by an kind of interrupt
-    // example: RTC wakeup alarm, button press, physical timer timeout etc.
+	// Signal the communication thread after 5 seconds of running
+	// This functionality can be replaced by an kind of interrupt
+	// example: RTC wakeup alarm, button press, physical timer timeout etc.
 	osDelay(5000);
 #ifdef RTE_Network_Interface_PPP
 //	osSignalSet(tid_CommunicationThread, 0x01);
 #endif
 	osSignalSet(tid_TLSThread, 0x01);
+}
+
+uint32_t get_time_since_epoch(void) {
+	return 1457456116;//TODO: change this to read from RTC module and convert to epoch
 }
 
 #include "stdio.h"

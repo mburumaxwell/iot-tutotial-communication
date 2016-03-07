@@ -405,6 +405,16 @@
               <FileType>1</FileType>
               <FilePath>.\additional_cas.c</FilePath>
             </File>
+            <File>
+              <FileName>url_encode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\url_encode.c</FilePath>
+            </File>
+            <File>
+              <FileName>sas_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sas_utils.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
