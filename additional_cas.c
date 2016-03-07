@@ -89,7 +89,36 @@
 "2SL6RE4288kPpjnngLJev7050UblVUfbvG4=\r\n"															\
 "-----END CERTIFICATE-----\r\n"
 
+#define IOT_ECLIPSE_CA																									\
+"-----BEGIN CERTIFICATE-----\r\n"																				\
+"MIIEVDCCAwygAwIBAgIEVYPx2jANBgkqhkiG9w0BAQsFADCBhzELMAkGA1UEBhMC\r\n"	\
+"Q0ExJTAjBgNVBAoTHEVjbGlwc2Uub3JnIEZvdW5kYXRpb24sIEluYy4xFDASBgNV\r\n"	\
+"BAsTC2lvdC10ZXN0aW5nMQ8wDQYDVQQHEwZOZXBlYW4xEDAOBgNVBAgTB09udGFy\r\n"	\
+"aW8xGDAWBgNVBAMTD2lvdC5lY2xpcHNlLm9yZzAeFw0xNTA2MTkxMDQxMzFaFw0y\r\n"	\
+"MDA1MjMxMDQxMzRaMIGHMQswCQYDVQQGEwJDQTElMCMGA1UEChMcRWNsaXBzZS5v\r\n"	\
+"cmcgRm91bmRhdGlvbiwgSW5jLjEUMBIGA1UECxMLaW90LXRlc3RpbmcxDzANBgNV\r\n"	\
+"BAcTBk5lcGVhbjEQMA4GA1UECBMHT250YXJpbzEYMBYGA1UEAxMPaW90LmVjbGlw\r\n"	\
+"c2Uub3JnMIIBUjANBgkqhkiG9w0BAQEFAAOCAT8AMIIBOgKCATEA0xUc7iXRrDG3\r\n"	\
+"WBCM6kzBv7eDVJUj8fMt7yhVS+os3QwKXfirzvRn1kj3KQkBzR/Nkeqk4go5EkYI\r\n"	\
+"ZCvG3svmfbyxJaWxl8VBhhiVf8ytd0CkNbbho5VlV2BrDuMpAMiQ1MZZqXV544wf\r\n"	\
+"BXAChXPgDjsjP/2QDAR52jJjqwoGm+KFAp9ZTFpHqi1Yajt2J7M1EOacnkasDdcD\r\n"	\
+"GzgxDIA1oo6XOM1sisOc11d+L1JyOwtSHIaQRO9BChU5CAZCTRF9wITdmBnhb+ha\r\n"	\
+"mEgHPFIeF8uPXnjvsXJgHM/GqOoIlb671DOVNdZPxDhg+Pp47qGQJrcTz+ptTLw4\r\n"	\
+"bgcSCbHQXK+TDk2GxUS27PbZ9trK2Rfo6MLe4x0kT8k+9zZkPDKdJzCYDVzfcakf\r\n"	\
+"Qj8cDxplrwIDAQABo2YwZDAMBgNVHRMBAf8EAjAAMCAGA1UdEQQZMBeCD2lvdC5l\r\n"	\
+"Y2xpcHNlLm9yZ4cExike8TATBgNVHSUEDDAKBggrBgEFBQcDATAdBgNVHQ4EFgQU\r\n"	\
+"sXXbkSdzImOC1cQcnXOPeGdghvowDQYJKoZIhvcNAQELBQADggExAHueO/jU8LNE\r\n"	\
+"M5GyA0ENlPLoeBgtsa2HGXGH1vrc9HEESaFLlQX/V0hEa6MtFTtZTGz4J4zfJK0s\r\n"	\
+"Zb7aMxQqlyDE0tGHb6p4XiyjyEcIpAaRuOdMFvsELBugLQIGyJU+FRhrJ6we0G/9\r\n"	\
+"aZg+PPhiLRsRQtxgS6zWJ3zQt8Vxj7gnjMjUzuJ30LeborKOZih0By1zY127TbgK\r\n"	\
+"0+7CjI3kzUzgX5gy6/YKJLoEl7In7GgLCXy4TdRAC4jrmiBZA3xhn2YbpEGG383z\r\n"	\
+"JL7gwrTxilGPdpUkPqsh3QPFybe//IuZnv0asPY4t9GgVqObomUGkafBcz1kDnlh\r\n"	\
+"eCQzrplSaCcePR3cawnX/x6ZjnRSfKGJzKYWBVtxLT6TW95AyGyv0bpsH5d3TpKO\r\n"	\
+"ayb6IYpBphw=\r\n"																											\
+"-----END CERTIFICATE-----\r\n"
+
+
 /* Concatenation of all additional CA certificates in PEM format if available */
-const char   additional_cas_pem[] = GLOBALSIGN_CA BALTIMORE_CA MSIT_CA;
+const char   additional_cas_pem[] = GLOBALSIGN_CA BALTIMORE_CA MSIT_CA IOT_ECLIPSE_CA;
 const size_t additional_cas_pem_len = sizeof(additional_cas_pem);
 #endif
